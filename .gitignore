@@ -1,0 +1,31 @@
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# VS Code files
+.vscode/
+
+# Rider files
+.idea/
+
+# Secrets (Important!)
+**/secrets.json
+
+# Environment-specific settings
+**/appsettings.Development.json
+
+# Cache and temp files
+*.DS_Store
+*.[Cc]ache
+*.orig
+*.log
+
+
+packages/
