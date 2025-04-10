@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3 shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">
+      <i class="bi bi-check2-square me-2"></i>
+      Todo List App
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <a class="nav-link" routerLink="/tasks" routerLinkActive="active" ariaCurrentWhenActive="page">
+             <i class="bi bi-list-task me-1"></i> Tasks
+          </a>
+        </li>
+
+        <li class="nav-item" *ngIf="!isLoggedIn">
+          <a class="nav-link" routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page">
+             <i class="bi bi-box-arrow-in-right me-1"></i> Login
+          </a>
+        </li>
+
+         <li class="nav-item" *ngIf="!isLoggedIn">
+          <a class="nav-link" routerLink="/register" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <i class="bi bi-person-plus-fill me-1"></i> Register
+          </a>
+        </li>
+
+         <li class="nav-item d-flex align-items-center ms-2" *ngIf="isLoggedIn">
+           <button class="btn btn-outline-secondary btn-sm" (click)="logout()">
+              <i class="bi bi-box-arrow-right me-1"></i> Logout
+           </button>
+         </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>

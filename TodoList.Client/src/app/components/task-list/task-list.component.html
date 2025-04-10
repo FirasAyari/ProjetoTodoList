@@ -1,0 +1,81 @@
+<h2>My Tasks</h2>
+
+<button class="btn btn-primary mb-3" (click)="openAddTaskModal()">
+  <i class="bi bi-plus-lg"></i> Add New Task
+</button>
+
+<div *ngIf="isLoading" class="text-center">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<div *ngIf="error" class="alert alert-danger">
+  {{ error }}
+</div>
+
+<div *ngIf="!isLoading && !error && (!paginatedResult || paginatedResult.items.length === 0)" class="alert alert-info">
+  No tasks found. Add one!
+</div>
+
+<div *ngIf="!isLoading && !error && paginatedResult && paginatedResult.items.length > 0">
+  <div class="d-flex flex-wrap gap-3 justify-content-center">
+
+    <div *ngFor="let task of paginatedResult.items; let i = index"
+         class="task-note p-3 border rounded"
+         [class.completed]="task.isCompleted"
+         [ngClass]="'note-color-' + ((i % 8) + 1)"
+         (click)="toggleComplete(task)"
+         style="cursor: pointer;"
+         title="Click to mark as {{ task.isCompleted ? 'incomplete' : 'complete' }}">
+
+      <div class="task-note-header d-flex justify-content-between align-items-start">
+         <h5 class="mb-0" [style.text-decoration]="task.isCompleted ? 'line-through' : 'none'">
+           {{ task.title }}
+         </h5>
+         <div class="task-note-actions">
+            <button class="btn btn-sm btn-outline-secondary me-1 py-0 px-1" title="Edit Task"
+                    (click)="$event.stopPropagation(); openEditTaskModal(task)">
+              <i class="bi bi-pencil small"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger py-0 px-1" title="Delete Task"
+                    (click)="$event.stopPropagation(); deleteTask(task.id)">
+               <i class="bi bi-trash small"></i>
+            </button>
+         </div>
+      </div>
+
+      <div class="task-note-body">
+        <p class="mb-0 small" [style.text-decoration]="task.isCompleted ? 'line-through' : 'none'">
+          {{ task.description }}
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <nav *ngIf="paginatedResult && paginatedResult.totalPages > 1" aria-label="Task pagination" class="mt-4">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="!paginatedResult.hasPreviousPage">
+        <a class="page-link" href="javascript:void(0)" (click)="goToPage(currentPage - 1)" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li class="page-item disabled">
+        <span class="page-link">Page {{ paginatedResult.pageNumber }} of {{ paginatedResult.totalPages }}</span>
+      </li>
+      <li class="page-item" [class.disabled]="!paginatedResult.hasNextPage">
+        <a class="page-link" href="javascript:void(0)" (click)="goToPage(currentPage + 1)" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+</div>
+
+<app-add-edit-task-modal
+  [taskToEdit]="taskToEdit"
+  (save)="handleTaskSave($event)"
+  (close)="closeTaskModal()">
+</app-add-edit-task-modal>

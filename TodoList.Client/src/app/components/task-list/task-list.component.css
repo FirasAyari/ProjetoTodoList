@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+
+.task-note {
+  width: 200px;
+  height: 200px;
+  box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.7);
+  transition: transform 0.15s linear, box-shadow 0.15s linear;
+  overflow-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.task-note:nth-child(4n+1) { transform: rotate(-1.5deg); }
+.task-note:nth-child(4n+2) { transform: rotate(1deg); }
+.task-note:nth-child(4n+3) { transform: rotate(0.5deg); }
+.task-note:nth-child(4n+4) { transform: rotate(-1deg); }
+
+.task-note:hover {
+   transform: scale(1.1) rotate(0deg);
+   box-shadow: 10px 10px 15px rgba(0,0,0,.7);
+   z-index: 10;
+   position: relative;
+}
+
+.task-note::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  background: linear-gradient(to top left,
+     transparent 50%,
+     rgba(0,0,0,0.1) 50%,
+     rgba(0,0,0,0.25)
+  );
+  box-shadow: -1px -1px 3px rgba(0,0,0,0.2);
+  transition: width 0.2s ease-out, height 0.2s ease-out;
+  border-top-left-radius: 3px;
+}
+
+.task-note:hover::before {
+  width: 35px;
+  height: 35px;
+}
+
+.note-color-1 { background-color: #fffec8; }
+
+.note-color-2 { background-color: #dcfce7; }
+
+.note-color-3 { background-color: #a7cdff; }
+
+.note-color-4 { background-color: #fce7f3; }
+
+.note-color-5 { background-color: #f7ca8f; }
+
+.note-color-6 { background-color: #e0e7ff; }
+
+.note-color-7 { background-color: #fff695; }
+
+.note-color-8 { background-color: #7ea8fd; }
+
+.task-note.completed {
+  opacity: 0.7;
+}
+
+.task-note.completed h5,
+.task-note.completed p {
+   text-decoration: line-through;
+   color: #6c757d;
+}
+
+.task-note-header {
+  border-bottom: 1px dashed rgba(0,0,0,0.2);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.task-note-body {
+  flex-grow: 1;
+  overflow-y: auto;
+  font-size: 0.95rem;
+}
+.task-note-actions button {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+.task-note:hover .task-note-actions button {
+    opacity: 0.8;
+}
+.task-note .task-note-actions button:hover {
+    opacity: 1;
+}
